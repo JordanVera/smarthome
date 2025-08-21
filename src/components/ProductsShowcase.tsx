@@ -73,7 +73,7 @@ const ProductsShowcase = () => {
           <div className="relative">
             <div className="frosted-glass-dark p-8 rounded-3xl">
               <img
-                src="/placeholder-fp4gd.png"
+                src="/smart-home.jpg"
                 alt="NexusHome Smart Hub"
                 className="w-full h-auto rounded-2xl"
               />
