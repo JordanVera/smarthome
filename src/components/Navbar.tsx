@@ -1,4 +1,4 @@
-import { Home, Menu, ChevronDown } from 'lucide-react';
+import { Home, Menu, ChevronDown, Settings } from 'lucide-react';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
@@ -51,10 +51,25 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <AdminOnly>
-              <div className="flex items-center space-x-8">
-                <Link href="/estimate">Estimate</Link>
-                <Link href="/products">Products</Link>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Admin
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/estimate">Estimate</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/products">Products</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </AdminOnly>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -126,18 +141,21 @@ export default function Navbar() {
                 <div className="p-4 space-y-4">
                   <AdminOnly>
                     <div className="space-y-2">
-                      <Link
-                        href="/estimate"
-                        className="block py-2 text-foreground hover:text-primary transition-colors"
-                      >
-                        Estimate
-                      </Link>
-                      <Link
-                        href="/products"
-                        className="block py-2 text-foreground hover:text-primary transition-colors"
-                      >
-                        Products
-                      </Link>
+                      <div className="font-medium text-foreground">Admin</div>
+                      <div className="pl-4 space-y-2">
+                        <Link
+                          href="/products"
+                          className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          Products
+                        </Link>
+                        <Link
+                          href="/estimate"
+                          className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          Estimate
+                        </Link>
+                      </div>
                     </div>
                   </AdminOnly>
                   <div className="space-y-2">
