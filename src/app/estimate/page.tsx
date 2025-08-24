@@ -9,7 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import AdminOnly from '@/components/AdminOnly';
-import CustomerInfoForm, { CustomerInfo } from '@/components/forms/CustomerInfoForm';
+import CustomerInfoForm, {
+  CustomerInfo,
+} from '@/components/forms/CustomerInfoForm';
 import {
   printPDF,
   downloadPDF,
@@ -32,206 +34,7 @@ import {
   Download,
   User,
 } from 'lucide-react';
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  image: string;
-  description: string;
-  manufacturer: string;
-}
-
-const products: Product[] = [
-  // Smart Switches
-  {
-    id: 'smart-switch-1',
-    name: 'Smart WiFi Switch',
-    category: 'Switches',
-    price: 29.99,
-    image: '/products/smart-switch.jpg',
-    description:
-      'WiFi-enabled smart switch for controlling lights and appliances',
-    manufacturer: 'Phillips',
-  },
-  {
-    id: 'smart-switch-2',
-    name: 'Dimmer Switch Pro',
-    category: 'Switches',
-    price: 39.99,
-    image: '/products/dimmer-switch.jpg',
-    description: 'Smart dimmer switch with voice control and scheduling',
-    manufacturer: 'Zigbee',
-  },
-  {
-    id: 'smart-switch-3',
-    name: '3-Way Smart Switch',
-    category: 'Switches',
-    price: 49.99,
-    image: '/products/3way-switch.jpg',
-    description: '3-way smart switch for multi-location control',
-    manufacturer: 'Google',
-  },
-
-  // Smart Outlets
-  {
-    id: 'smart-outlet-1',
-    name: 'Smart Power Strip',
-    category: 'Outlets',
-    price: 34.99,
-    image: '/products/power-strip.jpg',
-    description: '6-outlet smart power strip with USB charging',
-    manufacturer: 'Phillips',
-  },
-  {
-    id: 'smart-outlet-2',
-    name: 'WiFi Smart Outlet',
-    category: 'Outlets',
-    price: 19.99,
-    image: '/products/wifi-outlet.jpg',
-    description: 'Single smart outlet with energy monitoring',
-    manufacturer: 'Zigbee',
-  },
-  {
-    id: 'smart-outlet-3',
-    name: 'Outdoor Smart Outlet',
-    category: 'Outlets',
-    price: 44.99,
-    image: '/products/outdoor-outlet.jpg',
-    description: 'Weatherproof smart outlet for outdoor use',
-    manufacturer: 'Google',
-  },
-
-  // Smart Thermostats
-  {
-    id: 'thermostat-1',
-    name: 'Smart Learning Thermostat',
-    category: 'Thermostats',
-    price: 249.99,
-    image: '/products/learning-thermostat.jpg',
-    description: 'AI-powered thermostat that learns your preferences',
-    manufacturer: 'Phillips',
-  },
-  {
-    id: 'thermostat-2',
-    name: 'WiFi Thermostat',
-    category: 'Thermostats',
-    price: 129.99,
-    image: '/products/wifi-thermostat.jpg',
-    description: 'Basic WiFi thermostat with mobile app control',
-    manufacturer: 'Zigbee',
-  },
-
-  // Smart Lights
-  {
-    id: 'light-1',
-    name: 'Smart LED Bulb Pack',
-    category: 'Lights',
-    price: 59.99,
-    image: '/products/led-bulbs.jpg',
-    description: '4-pack of color-changing smart LED bulbs',
-    manufacturer: 'Google',
-  },
-  {
-    id: 'light-2',
-    name: 'Smart Light Strip',
-    category: 'Lights',
-    price: 79.99,
-    image: '/products/light-strip.jpg',
-    description: '16ft RGB smart light strip with music sync',
-    manufacturer: 'Phillips',
-  },
-  {
-    id: 'light-3',
-    name: 'Smart Table Lamp',
-    category: 'Lights',
-    price: 89.99,
-    image: '/products/table-lamp.jpg',
-    description: 'Touch-controlled smart table lamp with ambient lighting',
-    manufacturer: 'Zigbee',
-  },
-
-  // Smart Locks
-  {
-    id: 'lock-1',
-    name: 'Smart Deadbolt',
-    category: 'Locks',
-    price: 199.99,
-    image: '/products/smart-deadbolt.jpg',
-    description: 'Keyless smart deadbolt with fingerprint and PIN access',
-    manufacturer: 'Phillips',
-  },
-  {
-    id: 'lock-2',
-    name: 'Smart Lock Pro',
-    category: 'Locks',
-    price: 299.99,
-    image: '/products/smart-lock-pro.jpg',
-    description: 'Advanced smart lock with video camera and alerts',
-    manufacturer: 'Zigbee',
-  },
-
-  // Smart Sensors
-  {
-    id: 'sensor-1',
-    name: 'Motion Sensor',
-    category: 'Sensors',
-    price: 24.99,
-    image: '/products/motion-sensor.jpg',
-    description: 'Wireless motion sensor for automation triggers',
-    manufacturer: 'Google',
-  },
-  {
-    id: 'sensor-2',
-    name: 'Door/Window Sensor',
-    category: 'Sensors',
-    price: 19.99,
-    image: '/products/door-sensor.jpg',
-    description: 'Contact sensor for doors and windows',
-    manufacturer: 'Zigbee',
-  },
-  {
-    id: 'sensor-3',
-    name: 'Water Leak Sensor',
-    category: 'Sensors',
-    price: 34.99,
-    image: '/products/water-sensor.jpg',
-    description: 'Smart water leak detection sensor',
-    manufacturer: 'Phillips',
-  },
-
-  // Smart Cameras
-  {
-    id: 'camera-1',
-    name: 'Security Camera',
-    category: 'Cameras',
-    price: 89.99,
-    image: '/products/security-camera.jpg',
-    description: '1080p WiFi security camera with night vision',
-    manufacturer: 'Google',
-  },
-  {
-    id: 'camera-2',
-    name: 'Doorbell Camera',
-    category: 'Cameras',
-    price: 149.99,
-    image: '/products/doorbell-camera.jpg',
-    description: 'Smart video doorbell with two-way audio',
-    manufacturer: 'Phillips',
-  },
-
-  // Smart Speakers
-  {
-    id: 'speaker-1',
-    name: 'Smart Speaker',
-    category: 'Speakers',
-    price: 99.99,
-    image: '/products/smart-speaker.jpg',
-    description: 'Voice-controlled smart speaker with premium audio',
-    manufacturer: 'Zigbee',
-  },
-];
+import PRODUCTS from '@/constants/PRODUCTS';
 
 const categories = [
   'All',
@@ -245,7 +48,7 @@ const categories = [
   'Speakers',
 ];
 
-const manufacturers = ['All', 'Phillips', 'Zigbee', 'Google'];
+const manufacturers = ['All', 'Philips', 'Zigbee', 'Google'];
 
 const EstimatePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -257,7 +60,7 @@ const EstimatePage = () => {
   const [notes, setNotes] = useState('');
   const [terms, setTerms] = useState('');
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = PRODUCTS.filter((product) => {
     const matchesCategory =
       selectedCategory === 'All' || product.category === selectedCategory;
     const matchesManufacturer =

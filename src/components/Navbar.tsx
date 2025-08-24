@@ -51,7 +51,10 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <AdminOnly>
-              <Link href="/estimate">Estimate</Link>
+              <div className="flex items-center space-x-8">
+                <Link href="/estimate">Estimate</Link>
+                <Link href="/products">Products</Link>
+              </div>
             </AdminOnly>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -122,12 +125,20 @@ export default function Navbar() {
                 </DrawerHeader>
                 <div className="p-4 space-y-4">
                   <AdminOnly>
-                    <Link
-                      href="/estimate"
-                      className="block py-2 text-foreground hover:text-primary transition-colors"
-                    >
-                      Estimate
-                    </Link>
+                    <div className="space-y-2">
+                      <Link
+                        href="/estimate"
+                        className="block py-2 text-foreground hover:text-primary transition-colors"
+                      >
+                        Estimate
+                      </Link>
+                      <Link
+                        href="/products"
+                        className="block py-2 text-foreground hover:text-primary transition-colors"
+                      >
+                        Products
+                      </Link>
+                    </div>
                   </AdminOnly>
                   <div className="space-y-2">
                     <div className="font-medium text-foreground">
