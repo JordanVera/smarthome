@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import AdminOnly from '@/components/AdminOnly';
-import CustomerInfoForm, { CustomerInfo } from '@/components/CustomerInfoForm';
+import CustomerInfoForm, { CustomerInfo } from '@/components/forms/CustomerInfoForm';
 import {
   printPDF,
   downloadPDF,

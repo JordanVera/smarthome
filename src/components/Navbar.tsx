@@ -1,4 +1,4 @@
-import { Home, Menu } from 'lucide-react';
+import { Home, Menu, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
@@ -12,6 +12,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from './ui/drawer';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 import Image from 'next/image';
 
 export default function Navbar() {
@@ -37,6 +43,30 @@ export default function Navbar() {
             <AdminOnly>
               <Link href="/estimate">Estimate</Link>
             </AdminOnly>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Residential
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/residential/shades-blinds">Shades & Blinds</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/residential/smart-lighting">Smart Lighting</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/residential/smart-thermostats">
+                    Smart Thermostats
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <a
               href="#features"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -89,6 +119,31 @@ export default function Navbar() {
                       Estimate
                     </Link>
                   </AdminOnly>
+                  <div className="space-y-2">
+                    <div className="font-medium text-foreground">
+                      Residential
+                    </div>
+                    <div className="pl-4 space-y-2">
+                      <Link
+                        href="/residential/shades-blinds"
+                        className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Shades & Blinds
+                      </Link>
+                      <Link
+                        href="/residential/smart-lighting"
+                        className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Smart Lighting
+                      </Link>
+                      <Link
+                        href="/residential/smart-thermostats"
+                        className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Smart Thermostats
+                      </Link>
+                    </div>
+                  </div>
                   <a
                     href="#features"
                     className="block py-2 text-muted-foreground hover:text-foreground transition-colors"

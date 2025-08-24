@@ -9,7 +9,7 @@ const ProductsShowcase = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-geist mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold font-geist mb-6 gradient-header">
             Revolutionary Products
           </h2>
           <p className="text-xl text-muted-foreground font-manrope max-w-2xl mx-auto">

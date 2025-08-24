@@ -5,6 +5,7 @@ import HomepageHero from '@/components/heroes/HomepageHero';
 import FeaturesSection from '@/components/FeaturesSection';
 import ProductLogos from '@/components/ProductLogos';
 import ProductsShowcase from '@/components/ProductsShowcase';
+import CompatibleDevices from '@/components/carousels/CompatibleDevices';
 
 export default function HomePage() {
   return (
@@ -14,6 +15,10 @@ export default function HomePage() {
 
       {/* Features Section */}
       <FeaturesSection />
+
+      {/* Compatible Devices Section */}
+      <CompatibleDevices />
+
       {/* Product Logos Section */}
       <ProductsShowcase />
       <ProductLogos />

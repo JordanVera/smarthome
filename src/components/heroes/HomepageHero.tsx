@@ -55,9 +55,7 @@ export default function HomepageHero() {
             words={['Home Automation', 'lifts', 'leads']}
             interval={3000}
           /> */}
-          <span className="bg-gradient-to-r from-primary via-pink-500 to-secondary bg-clip-text text-transparent">
-            Home Automation
-          </span>
+          <span className="gradient-header">Home Automation</span>
         </h1>
         <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-manrope leading-relaxed">
           Transform your living space with intelligent automation that learns,
