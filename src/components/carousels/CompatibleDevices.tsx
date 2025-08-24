@@ -59,10 +59,12 @@ const deviceCategories: DeviceCategory[] = [
 export default function CompatibleDevices() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
-    loop: true,
+    loop: false,
     skipSnaps: false,
     dragFree: false,
     containScroll: 'trimSnaps',
+    slidesToScroll: 1,
+    inViewThreshold: 0.7,
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -123,9 +125,16 @@ export default function CompatibleDevices() {
         <div className="relative max-w-6xl mx-auto">
           {/* Carousel Container */}
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-6">
+            <div className="flex">
               {deviceCategories.map((category, index) => (
-                <div key={category.id} className="flex-[0_0_280px]">
+                <div
+                  key={category.id}
+                  className="flex-[0_0_280px]"
+                  style={{
+                    marginRight:
+                      index === deviceCategories.length - 1 ? '0px' : '24px',
+                  }}
+                >
                   <Card className="h-[320px] transition-all duration-300 relative overflow-hidden">
                     {/* Background Image */}
                     <div
@@ -157,8 +166,9 @@ export default function CompatibleDevices() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={scrollPrev}
+            disabled={selectedIndex === 0}
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
@@ -166,8 +176,9 @@ export default function CompatibleDevices() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={scrollNext}
+            disabled={selectedIndex === scrollSnaps.length - 1}
           >
             <ChevronRight className="h-5 w-5" />
           </Button>
