@@ -62,7 +62,7 @@ const FeaturesSection = () => {
                   <h3 className="text-3xl font-bold text-white mb-2 text-center">
                     {feature.title}
                   </h3>
-                  <p className="text-white text-lg mb-6 text-center">
+                  <p className="text-foreground/80 text-lg mb-6 text-center">
                     {feature.subtitle}
                   </p>
                 </div>
