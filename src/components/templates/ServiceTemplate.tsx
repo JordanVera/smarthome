@@ -1,3 +1,5 @@
+'use client';
+
 import { ServiceData } from '@/types/service';
 import { Button } from '@/components/ui/button';
 import {
@@ -8,15 +10,19 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AnimatedBackground } from '@/components/ui/animated-background';
+import { useState } from 'react';
 
 interface ServiceTemplateProps {
   serviceData: ServiceData;
 }
 
 export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const {
     title,
     subtitle,
@@ -25,6 +31,7 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
     features,
     benefits,
     products,
+    faqs,
     ctaTitle,
     ctaDescription,
   } = serviceData;
@@ -33,21 +40,22 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
+        <AnimatedBackground />
+
         <div className="relative max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge variant="outline" className="mb-4">
                 {subtitle}
               </Badge>
-              <h1 className="text-4xl lg:text-6xl font-bold font-geist mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
+              <h1 className="text-4xl lg:text-6xl font-bold font-geist mb-6 gradient-header">
                 {title}
               </h1>
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
                 {description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="group">
+                <Button size="lg" className="group btn-primary">
                   Get Free Quote
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -184,25 +192,67 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      {faqs && (
+        <section className="py-20 px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold font-geist mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Get answers to common questions about our services
+              </p>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="overflow-hidden">
+                  <button
+                    className="w-full text-left p-6 flex justify-between items-center hover:bg-muted/50 transition-colors"
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  >
+                    <h3 className="text-lg font-semibold pr-4">
+                      {faq.question}
+                    </h3>
+                    {openFaq === index ? (
+                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                    )}
+                  </button>
+                  {openFaq === index && (
+                    <div className="px-6 pb-6">
+                      <p className="text-muted-foreground leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-primary to-secondary">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold font-geist mb-4 text-white">
+      <section className="relative py-20 px-6 overflow-hidden">
+        <AnimatedBackground />
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold font-geist mb-4">
             {ctaTitle}
           </h2>
-          <p className="text-xl text-white/90 mb-8">{ctaDescription}</p>
+          <p className="text-xl text-muted-foreground mb-8">{ctaDescription}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              variant="secondary"
-              className="bg-white text-primary hover:bg-white/90"
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold"
             >
               Schedule Consultation
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-primary"
+              className="border-border text-foreground hover:bg-muted"
             >
               <Link href="/estimate">Get Estimate</Link>
             </Button>

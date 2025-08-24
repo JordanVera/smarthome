@@ -35,6 +35,16 @@ export default function Navbar() {
               alt="NexusHome Logo"
               width={250}
               height={250}
+              className="hidden dark:block"
+              priority
+            />
+            <Image
+              src="/logos/logo-black.png"
+              alt="NexusHome Logo"
+              width={250}
+              height={250}
+              className="block dark:hidden"
+              priority
             />
           </Link>
 

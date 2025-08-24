@@ -17,6 +17,11 @@ export interface ServiceProduct {
   features: string[];
 }
 
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
 export interface ServiceData {
   title: string;
   subtitle: string;
@@ -25,6 +30,7 @@ export interface ServiceData {
   features: ServiceFeature[];
   benefits: ServiceBenefit[];
   products: ServiceProduct[];
+  faqs?: FAQ[];
   ctaTitle: string;
   ctaDescription: string;
 }

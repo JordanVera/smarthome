@@ -85,6 +85,29 @@ export const servicesData: Record<string, ServiceData> = {
         ],
       },
     ],
+    faqs: [
+      {
+        question: 'How long does installation typically take?',
+        answer:
+          'Most installations are completed within 2-4 hours per window, depending on the complexity and number of shades being installed.',
+      },
+      {
+        question: 'Can smart shades work during power outages?',
+        answer:
+          'Yes, with our optional battery backup system, your shades will continue to operate for up to 6 months during power outages.',
+      },
+      {
+        question:
+          'Are smart shades compatible with existing window treatments?',
+        answer:
+          'In most cases, yes. Our consultation will assess your current setup and recommend the best integration approach.',
+      },
+      {
+        question: 'What maintenance is required?',
+        answer:
+          'Smart shades require minimal maintenance - occasional dusting and annual motor inspection. We provide a comprehensive maintenance guide.',
+      },
+    ],
     ctaTitle: 'Ready to Upgrade Your Windows?',
     ctaDescription:
       'Get a free consultation and discover how smart shades can transform your home.',
@@ -173,6 +196,28 @@ export const servicesData: Record<string, ServiceData> = {
         ],
       },
     ],
+    faqs: [
+      {
+        question: 'Do I need to replace all my light switches?',
+        answer:
+          'Not necessarily. We can work with your existing switches in many cases, or recommend strategic upgrades for maximum benefit.',
+      },
+      {
+        question: 'How much can smart lighting save on my electricity bill?',
+        answer:
+          'Most customers see 30-75% reduction in lighting costs through LED efficiency and smart automation features.',
+      },
+      {
+        question: 'Can smart lights work without internet?',
+        answer:
+          'Yes, basic functions like manual control will work offline. Advanced features like voice control require internet connectivity.',
+      },
+      {
+        question: 'What happens if I move homes?',
+        answer:
+          'Most smart bulbs and some switches can be easily removed and reinstalled in your new home.',
+      },
+    ],
     ctaTitle: 'Illuminate Your Smart Home',
     ctaDescription:
       'Schedule a consultation to design the perfect lighting solution for your space.',
@@ -257,6 +302,28 @@ export const servicesData: Record<string, ServiceData> = {
           'Advanced scheduling',
           'Professional setup',
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Will a smart thermostat work with my old HVAC system?',
+        answer:
+          'Most systems are compatible, but we perform a compatibility check during consultation to ensure proper operation.',
+      },
+      {
+        question: 'How much can I expect to save on energy bills?',
+        answer:
+          'Most customers save 10-23% on heating and cooling costs, which typically pays for the thermostat within 1-2 years.',
+      },
+      {
+        question: 'Do I need a C-wire for installation?',
+        answer:
+          'A C-wire is preferred, but we can install a power adapter if your system doesnt have one.',
+      },
+      {
+        question: 'How long does the learning period take?',
+        answer:
+          'Most smart thermostats learn your preferences within 1-2 weeks of installation and continue to optimize over time.',
       },
     ],
     ctaTitle: 'Upgrade Your Climate Control',
