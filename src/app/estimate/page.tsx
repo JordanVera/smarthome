@@ -22,7 +22,6 @@ import {
 } from '@/lib/pdf-generator';
 import {
   ShoppingCart,
-  Calculator,
   Home,
   Zap,
   Lightbulb,

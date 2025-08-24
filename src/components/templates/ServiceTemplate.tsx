@@ -10,19 +10,22 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatedBackground } from '@/components/ui/animated-background';
-import { useState } from 'react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 interface ServiceTemplateProps {
   serviceData: ServiceData;
 }
 
 export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   const {
     title,
     subtitle,
@@ -71,7 +74,7 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
                 alt={title}
                 width={600}
                 height={400}
-                className="relative rounded-3xl shadow-2xl"
+                className="relative rounded-3xl shadow-2xl max-h-[340px] object-cover"
               />
             </div>
           </div>
@@ -204,32 +207,20 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
                 Get answers to common questions about our services
               </p>
             </div>
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
-                <div key={index} className="overflow-hidden">
-                  <button
-                    className="w-full text-left p-6 flex justify-between items-center hover:bg-muted/50 transition-colors"
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  >
-                    <h3 className="text-lg font-semibold pr-4">
-                      {faq.question}
-                    </h3>
-                    {openFaq === index ? (
-                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
-                    )}
-                  </button>
-                  {openFaq === index && (
-                    <div className="px-6 pb-6">
-                      <p className="text-muted-foreground leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline px-6 py-4 hover:bg-muted/50 transition-colors">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4">
+                    <p className="text-muted-foreground leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
       )}
