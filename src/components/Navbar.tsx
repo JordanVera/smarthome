@@ -12,6 +12,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from './ui/drawer';
+import Image from 'next/image';
 
 export default function Navbar() {
   return (
@@ -19,10 +20,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+            {/* <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
               <Home className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold font-geist">NexusHome</span>
+            <span className="text-xl font-bold font-geist">NexusHome</span> */}
+            <Image
+              src="/logos/logo-white.png"
+              alt="NexusHome Logo"
+              width={250}
+              height={250}
+            />
           </Link>
 
           {/* Desktop Navigation */}

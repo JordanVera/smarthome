@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
+import { TextFlip } from '../ui/text-flip';
 
 export default function HomepageHero() {
   return (
@@ -50,7 +51,11 @@ export default function HomepageHero() {
         <h1 className="text-5xl md:text-7xl font-bold font-geist mb-6 bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">
           The Future of
           <br />
-          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          {/* <TextFlip
+            words={['Home Automation', 'lifts', 'leads']}
+            interval={3000}
+          /> */}
+          <span className="bg-gradient-to-r from-primary via-pink-500 to-secondary bg-clip-text text-transparent">
             Home Automation
           </span>
         </h1>

@@ -123,6 +123,17 @@
     @apply bg-background text-foreground;
   }
 
+  /* Text selection styling */
+  ::selection {
+    background-color: #ec4899; /* Pink-500 */
+    color: white;
+  }
+  
+  ::-moz-selection {
+    background-color: #ec4899; /* Pink-500 */
+    color: white;
+  }
+
   /* Updated frosted glass utility classes */
   .frosted-glass {
     backdrop-filter: blur(20px);

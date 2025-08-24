@@ -7,7 +7,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 import AdminOnly from '@/components/AdminOnly';
+import CustomerInfoForm, { CustomerInfo } from '@/components/CustomerInfoForm';
+import {
+  printPDF,
+  downloadPDF,
+  generateEstimateNumber,
+  generateInvoiceNumber,
+  EstimateData,
+  EstimateItem,
+} from '@/lib/pdf-generator';
 import {
   ShoppingCart,
   Calculator,
@@ -18,6 +28,9 @@ import {
   Wifi,
   Lock,
   Shield,
+  FileText,
+  Download,
+  User,
 } from 'lucide-react';
 
 interface Product {
@@ -239,6 +252,10 @@ const EstimatePage = () => {
   const [selectedManufacturer, setSelectedManufacturer] = useState('All');
   const [cart, setCart] = useState<{ [key: string]: number }>({});
   const [searchTerm, setSearchTerm] = useState('');
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
+  const [showCustomerInfo, setShowCustomerInfo] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [terms, setTerms] = useState('');
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
@@ -305,6 +322,127 @@ const EstimatePage = () => {
 
   const clearCart = () => {
     setCart({});
+  };
+
+  const handleCustomerInfoSubmit = (info: CustomerInfo) => {
+    setCustomerInfo(info);
+    setShowCustomerInfo(false);
+  };
+
+  const handleGeneratePDF = (isInvoice: boolean = false) => {
+    if (getCartItems().length === 0) {
+      alert('Please add products to your cart before generating a PDF.');
+      return;
+    }
+
+    const cartItems: EstimateItem[] = getCartItems().map(
+      ({ product, quantity }) => ({
+        id: product!.id,
+        name: product!.name,
+        category: product!.category,
+        price: product!.price,
+        quantity: quantity,
+        total: product!.price * quantity,
+        manufacturer: product!.manufacturer,
+      })
+    );
+
+    const subtotal = getCartTotal();
+    const tax = subtotal * 0.085; // 8.5% tax
+    const total = subtotal + tax;
+
+    const estimateData: EstimateData = {
+      items: cartItems,
+      subtotal,
+      tax,
+      total,
+      customerInfo: customerInfo || undefined,
+      estimateNumber: isInvoice
+        ? generateInvoiceNumber()
+        : generateEstimateNumber(),
+      date: new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      validUntil: new Date(
+        Date.now() + 30 * 24 * 60 * 60 * 1000
+      ).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      notes: notes || undefined,
+      terms: terms || undefined,
+    };
+
+    const filename = isInvoice
+      ? `invoice-${estimateData.estimateNumber}.pdf`
+      : `estimate-${estimateData.estimateNumber}.pdf`;
+
+    downloadPDF(estimateData, filename, isInvoice);
+
+    // Show success message
+    const message = isInvoice
+      ? 'Invoice downloaded successfully!'
+      : 'Estimate downloaded successfully!';
+    alert(message);
+  };
+
+  const handlePrintPDF = (isInvoice: boolean = false) => {
+    if (getCartItems().length === 0) {
+      alert('Please add products to your cart before printing.');
+      return;
+    }
+
+    const cartItems: EstimateItem[] = getCartItems().map(
+      ({ product, quantity }) => ({
+        id: product!.id,
+        name: product!.name,
+        category: product!.category,
+        price: product!.price,
+        quantity: quantity,
+        total: product!.price * quantity,
+        manufacturer: product!.manufacturer,
+      })
+    );
+
+    const subtotal = getCartTotal();
+    const tax = subtotal * 0.085; // 8.5% tax
+    const total = subtotal + tax;
+
+    const estimateData: EstimateData = {
+      items: cartItems,
+      subtotal,
+      tax,
+      total,
+      customerInfo: customerInfo || undefined,
+      estimateNumber: isInvoice
+        ? generateInvoiceNumber()
+        : generateEstimateNumber(),
+      date: new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      validUntil: new Date(
+        Date.now() + 30 * 24 * 60 * 60 * 1000
+      ).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      notes: notes || undefined,
+      terms: terms || undefined,
+    };
+
+    printPDF(estimateData, isInvoice);
+
+    // Show success message
+    const message = isInvoice
+      ? 'Invoice opened for printing!'
+      : 'Estimate opened for printing!';
+    alert(message);
   };
 
   return (
@@ -544,6 +682,9 @@ const EstimatePage = () => {
                             <p className="text-xs text-muted-foreground">
                               ${product!.price.toFixed(2)} each
                             </p>
+                            <p className="text-xs font-medium text-primary">
+                              Total: ${(product!.price * quantity).toFixed(2)}
+                            </p>
                           </div>
                           <div className="flex items-center gap-2">
                             <Button
@@ -581,39 +722,168 @@ const EstimatePage = () => {
 
                     <Separator className="bg-border" />
 
-                    {/* Total */}
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center text-lg font-semibold">
-                        <span className="text-foreground">Total:</span>
-                        <span className="text-primary text-2xl">
+                    {/* Cost Breakdown */}
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Subtotal:</span>
+                        <span className="text-foreground">
                           ${getCartTotal().toFixed(2)}
                         </span>
                       </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">
+                          Tax (8.5%):
+                        </span>
+                        <span className="text-foreground">
+                          ${(getCartTotal() * 0.085).toFixed(2)}
+                        </span>
+                      </div>
+                      <Separator className="bg-border" />
+                      <div className="flex justify-between text-lg font-semibold">
+                        <span className="text-foreground">Total:</span>
+                        <span className="text-primary">
+                          ${(getCartTotal() * 1.085).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
 
-                      <div className="space-y-2">
-                        <Button
-                          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                          size="lg"
-                          onClick={() => {
-                            // Here you could add functionality to save estimate, send to email, etc.
-                            alert(
-                              'Estimate saved! Total: $' +
-                                getCartTotal().toFixed(2)
-                            );
-                          }}
+                    <Separator className="bg-border" />
+
+                    {/* Customer Information */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm font-medium text-foreground">
+                          Customer Information
+                        </Label>
+                        {customerInfo && (
+                          <Badge variant="secondary" className="text-xs">
+                            <User className="h-3 w-3 mr-1" />
+                            Added
+                          </Badge>
+                        )}
+                      </div>
+
+                      {customerInfo ? (
+                        <div className="p-3 bg-muted/30 rounded-lg border border-border/50">
+                          <p className="text-sm font-medium text-foreground">
+                            {customerInfo.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {customerInfo.email}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {customerInfo.phone}
+                          </p>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setCustomerInfo(null)}
+                            className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ) : (
+                        <CustomerInfoForm
+                          onSubmit={handleCustomerInfoSubmit}
+                          triggerText="Add Customer Info"
+                          buttonVariant="outline"
+                          buttonSize="sm"
+                        />
+                      )}
+                    </div>
+
+                    <Separator className="bg-border" />
+
+                    {/* Notes and Terms */}
+                    <div className="space-y-3">
+                      <div>
+                        <Label
+                          htmlFor="notes"
+                          className="text-sm font-medium text-foreground"
                         >
-                          <Calculator className="h-4 w-4 mr-2" />
-                          Save Estimate
-                        </Button>
+                          Notes (Optional)
+                        </Label>
+                        <Textarea
+                          id="notes"
+                          placeholder="Add any special notes or requirements..."
+                          value={notes}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLTextAreaElement>
+                          ) => setNotes(e.target.value)}
+                          rows={2}
+                          className="mt-1 bg-background border-border text-foreground placeholder:text-muted-foreground resize-none"
+                        />
+                      </div>
 
+                      <div>
+                        <Label
+                          htmlFor="terms"
+                          className="text-sm font-medium text-foreground"
+                        >
+                          Terms & Conditions (Optional)
+                        </Label>
+                        <Textarea
+                          id="terms"
+                          placeholder="Add any specific terms or conditions..."
+                          value={terms}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLTextAreaElement>
+                          ) => setTerms(e.target.value)}
+                          rows={2}
+                          className="mt-1 bg-background border-border text-foreground placeholder:text-muted-foreground resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    <Separator className="bg-border" />
+
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                          size="lg"
+                          onClick={() => handleGeneratePDF(false)}
+                        >
+                          <FileText className="h-4 w-4 mr-2" />
+                          Download Estimate
+                        </Button>
                         <Button
                           variant="outline"
-                          className="w-full border-border hover:bg-muted text-foreground"
-                          onClick={clearCart}
+                          className="border-primary text-primary hover:bg-primary/10"
+                          onClick={() => handlePrintPDF(false)}
                         >
-                          Clear Cart
+                          <FileText className="h-4 w-4 mr-2" />
+                          Print Estimate
                         </Button>
                       </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button
+                          className="bg-green-600 hover:bg-green-700 text-white"
+                          size="lg"
+                          onClick={() => handleGeneratePDF(true)}
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download Invoice
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="border-green-600 text-green-600 hover:bg-green-50"
+                          onClick={() => handlePrintPDF(true)}
+                        >
+                          <FileText className="h-4 w-4 mr-2" />
+                          Print Invoice
+                        </Button>
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        className="w-full border-border hover:bg-muted text-foreground"
+                        onClick={clearCart}
+                      >
+                        Clear Cart
+                      </Button>
                     </div>
                   </>
                 )}
