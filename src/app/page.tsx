@@ -10,20 +10,12 @@ import CompatibleDevices from '@/components/carousels/CompatibleDevices';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
-      {/* Hero Section */}
       <HomepageHero />
-
-      {/* Features Section */}
       <FeaturesSection />
-
-      {/* Compatible Devices Section */}
-      <CompatibleDevices />
-
-      {/* Product Logos Section */}
       <ProductsShowcase />
-      <ProductLogos />
 
-      {/* CTA Section */}
+      <CompatibleDevices />
+      <ProductLogos />
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="frosted-glass-dark p-12 rounded-3xl">

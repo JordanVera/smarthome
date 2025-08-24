@@ -86,7 +86,7 @@ const ProductLogos = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-geist mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold font-geist mb-6 gradient-header">
             Compatible with Leading Brands
           </h2>
           <p className="text-xl text-foreground font-manrope max-w-3xl mx-auto">
