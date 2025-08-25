@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,7 +33,8 @@ import {
   Download,
   User,
 } from 'lucide-react';
-import PRODUCTS from '@/constants/PRODUCTS';
+import { productsApi } from '@/lib/api';
+import { Product } from '@/types/product';
 
 const categories = [
   'All',
@@ -47,8 +48,6 @@ const categories = [
   'Speakers',
 ];
 
-const manufacturers = ['All', 'Philips', 'Zigbee', 'Google'];
-
 const EstimatePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedManufacturer, setSelectedManufacturer] = useState('All');
@@ -58,17 +57,60 @@ const EstimatePage = () => {
   const [showCustomerInfo, setShowCustomerInfo] = useState(false);
   const [notes, setNotes] = useState('');
   const [terms, setTerms] = useState('');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [manufacturers, setManufacturers] = useState(['All']);
 
-  const filteredProducts = PRODUCTS.filter((product) => {
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await productsApi.getAll({ limit: 100 }); // Get more products for estimates
+        setProducts(response.products);
+
+        // Extract unique manufacturers from products
+        const uniqueManufacturers = [
+          'All',
+          ...new Set(
+            response.products
+              .map((p) => p.manufacturer || p.brand)
+              .filter((m): m is string => m !== null && m !== undefined)
+          ),
+        ];
+        setManufacturers(uniqueManufacturers);
+
+        setError(null);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch products'
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = products.filter((product) => {
     const matchesCategory =
       selectedCategory === 'All' || product.category === selectedCategory;
     const matchesManufacturer =
       selectedManufacturer === 'All' ||
-      product.manufacturer === selectedManufacturer;
+      (product.manufacturer && product.manufacturer === selectedManufacturer) ||
+      (product.brand && product.brand === selectedManufacturer);
     const matchesSearch =
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.manufacturer.toLowerCase().includes(searchTerm.toLowerCase());
+      (product.description &&
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (product.manufacturer &&
+        product.manufacturer
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())) ||
+      (product.brand &&
+        product.brand.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesManufacturer && matchesSearch;
   });
 
@@ -137,17 +179,17 @@ const EstimatePage = () => {
       return;
     }
 
-    const cartItems: EstimateItem[] = getCartItems().map(
-      ({ product, quantity }) => ({
+    const cartItems: EstimateItem[] = getCartItems()
+      .filter(({ product }) => product && product.price !== null) // Only include products with prices
+      .map(({ product, quantity }) => ({
         id: product!.id,
         name: product!.name,
         category: product!.category,
-        price: product!.price,
+        price: product!.price!,
         quantity: quantity,
-        total: product!.price * quantity,
-        manufacturer: product!.manufacturer,
-      })
-    );
+        total: product!.price! * quantity,
+        manufacturer: product!.manufacturer || product!.brand || 'Unknown',
+      }));
 
     const subtotal = getCartTotal();
     const tax = subtotal * 0.085; // 8.5% tax
@@ -197,17 +239,17 @@ const EstimatePage = () => {
       return;
     }
 
-    const cartItems: EstimateItem[] = getCartItems().map(
-      ({ product, quantity }) => ({
+    const cartItems: EstimateItem[] = getCartItems()
+      .filter(({ product }) => product && product.price !== null) // Only include products with prices
+      .map(({ product, quantity }) => ({
         id: product!.id,
         name: product!.name,
         category: product!.category,
-        price: product!.price,
+        price: product!.price!,
         quantity: quantity,
-        total: product!.price * quantity,
-        manufacturer: product!.manufacturer,
-      })
-    );
+        total: product!.price! * quantity,
+        manufacturer: product!.manufacturer || product!.brand || 'Unknown',
+      }));
 
     const subtotal = getCartTotal();
     const tax = subtotal * 0.085; // 8.5% tax
@@ -351,70 +393,106 @@ const EstimatePage = () => {
                 <Separator className="bg-border" />
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
-                  {filteredProducts.map((product) => (
-                    <Card
-                      key={product.id}
-                      className="hover:shadow-md transition-all duration-200 border-border bg-card hover:bg-card/80"
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <Card key={index} className="border-border bg-card">
+                        <CardContent className="p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-16 h-16 bg-muted rounded-lg flex-shrink-0 border border-border" />
+                            <div className="flex-1 min-w-0 space-y-2">
+                              <div className="h-4 bg-muted rounded w-3/4" />
+                              <div className="h-3 bg-muted rounded w-1/2" />
+                              <div className="h-3 bg-muted rounded w-full" />
+                              <div className="h-3 bg-muted rounded w-2/3" />
+                              <div className="flex items-center justify-between mt-2">
+                                <div className="h-6 bg-muted rounded w-20" />
+                                <div className="h-8 bg-muted rounded w-16" />
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-8">
+                    <p className="text-red-600 mb-4">Error: {error}</p>
+                    <Button
+                      onClick={() => window.location.reload()}
+                      variant="outline"
                     >
-                      <CardContent className="p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center flex-shrink-0 border border-border">
-                            <div className="text-muted-foreground text-xs text-center">
-                              {product.category === 'Switches' && (
-                                <Zap className="h-6 w-6 mx-auto" />
-                              )}
-                              {product.category === 'Outlets' && (
-                                <Wifi className="h-6 w-6 mx-auto" />
-                              )}
-                              {product.category === 'Thermostats' && (
-                                <Thermometer className="h-6 w-6 mx-auto" />
-                              )}
-                              {product.category === 'Lights' && (
-                                <Lightbulb className="h-6 w-6 mx-auto" />
-                              )}
-                              {product.category === 'Locks' && (
-                                <Lock className="h-6 w-6 mx-auto" />
-                              )}
-                              {product.category === 'Sensors' && (
-                                <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
-                              )}
-                              {product.category === 'Cameras' && (
-                                <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
-                              )}
-                              {product.category === 'Speakers' && (
-                                <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
-                              )}
+                      Retry
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+                    {filteredProducts.map((product) => (
+                      <Card
+                        key={product.id}
+                        className="hover:shadow-md transition-all duration-200 border-border bg-card hover:bg-card/80"
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center flex-shrink-0 border border-border">
+                              <div className="text-muted-foreground text-xs text-center">
+                                {product.category === 'Switches' && (
+                                  <Zap className="h-6 w-6 mx-auto" />
+                                )}
+                                {product.category === 'Outlets' && (
+                                  <Wifi className="h-6 w-6 mx-auto" />
+                                )}
+                                {product.category === 'Thermostats' && (
+                                  <Thermometer className="h-6 w-6 mx-auto" />
+                                )}
+                                {product.category === 'Lights' && (
+                                  <Lightbulb className="h-6 w-6 mx-auto" />
+                                )}
+                                {product.category === 'Locks' && (
+                                  <Lock className="h-6 w-6 mx-auto" />
+                                )}
+                                {product.category === 'Sensors' && (
+                                  <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
+                                )}
+                                {product.category === 'Cameras' && (
+                                  <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
+                                )}
+                                {product.category === 'Speakers' && (
+                                  <div className="h-6 w-6 mx-auto bg-muted-foreground/30 rounded-full" />
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-sm text-foreground truncate">
+                                {product.name}
+                              </h3>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {product.manufacturer}
+                              </p>
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                                {product.description}
+                              </p>
+                              <div className="flex items-center justify-between mt-2">
+                                <span className="text-lg font-bold text-primary">
+                                  {product.price
+                                    ? `$${Number(product.price).toFixed(2)}`
+                                    : 'Price N/A'}
+                                </span>
+                                <Button
+                                  size="sm"
+                                  onClick={() => addToCart(product.id)}
+                                  className="h-8 px-3 bg-primary hover:bg-primary/90 text-primary-foreground"
+                                >
+                                  Add
+                                </Button>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-sm text-foreground truncate">
-                              {product.name}
-                            </h3>
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {product.manufacturer}
-                            </p>
-                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                              {product.description}
-                            </p>
-                            <div className="flex items-center justify-between mt-2">
-                              <span className="text-lg font-bold text-primary">
-                                ${product.price.toFixed(2)}
-                              </span>
-                              <Button
-                                size="sm"
-                                onClick={() => addToCart(product.id)}
-                                className="h-8 px-3 bg-primary hover:bg-primary/90 text-primary-foreground"
-                              >
-                                Add
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -482,10 +560,15 @@ const EstimatePage = () => {
                               {product!.manufacturer}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              ${product!.price.toFixed(2)} each
+                              {product!.price
+                                ? `$${product!.price.toFixed(2)} each`
+                                : 'Price N/A'}
                             </p>
                             <p className="text-xs font-medium text-primary">
-                              Total: ${(product!.price * quantity).toFixed(2)}
+                              Total:{' '}
+                              {product!.price
+                                ? `$${(product!.price * quantity).toFixed(2)}`
+                                : 'N/A'}
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
