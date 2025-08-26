@@ -53,7 +53,7 @@ export default function NewServicePage() {
 }
 
 export const metadata = {
-  title: 'Your Service Title | NexusHome',
+  title: 'Your Service Title | Seamless Smart Solutions',
   description: 'Service description for SEO',
 };
 ```

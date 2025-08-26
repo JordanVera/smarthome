@@ -6,7 +6,7 @@ export default function SmartThermostatsPage() {
 }
 
 export const metadata = {
-  title: 'Smart Thermostats | NexusHome',
+  title: 'Smart Thermostats | Seamless Smart Solutions',
   description:
     "Optimize your home's temperature and energy usage with learning thermostats that adapt to your schedule.",
 };

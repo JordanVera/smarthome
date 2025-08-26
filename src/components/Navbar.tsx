@@ -28,7 +28,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/logos/logo-white.png"
-              alt="NexusHome Logo"
+              alt="Seamless Smart Solutions Logo"
               width={250}
               height={250}
               className="hidden dark:block"
@@ -36,7 +36,7 @@ export default function Navbar() {
             />
             <Image
               src="/logos/logo-black.png"
-              alt="NexusHome Logo"
+              alt="Seamless Smart Solutions Logo"
               width={250}
               height={250}
               className="block dark:hidden"

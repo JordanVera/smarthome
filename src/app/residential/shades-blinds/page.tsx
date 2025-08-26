@@ -6,7 +6,7 @@ export default function ShadesBlindsPage() {
 }
 
 export const metadata = {
-  title: 'Smart Shades & Blinds | NexusHome',
+  title: 'Smart Shades & Blinds | Seamless Smart Solutions',
   description:
     'Transform your home with intelligent window treatments that respond to light, temperature, and your daily routine.',
 };

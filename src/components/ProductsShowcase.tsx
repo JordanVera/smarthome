@@ -74,7 +74,7 @@ const ProductsShowcase = () => {
             <div className="frosted-glass-dark p-8 rounded-3xl">
               <img
                 src="/smart-home.jpg"
-                alt="NexusHome Smart Hub"
+                alt="Seamless Smart Solutions Smart Hub"
                 className="w-full h-auto rounded-2xl"
               />
             </div>

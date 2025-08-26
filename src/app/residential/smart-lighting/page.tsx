@@ -6,7 +6,7 @@ export default function SmartLightingPage() {
 }
 
 export const metadata = {
-  title: 'Smart Lighting Solutions | NexusHome',
+  title: 'Smart Lighting Solutions | Seamless Smart Solutions',
   description:
     'Create the perfect ambiance with smart lighting that adapts to your lifestyle and saves energy.',
 };

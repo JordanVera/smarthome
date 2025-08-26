@@ -21,7 +21,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'NexusHome - Smart Home Automation',
+  title: 'Seamless Smart Solutions - Smart Home Automation',
   description:
     'Transform your home with cutting-edge smart automation technology',
   generator: 'v0.app',

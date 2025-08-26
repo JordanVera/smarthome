@@ -10,7 +10,7 @@ const Footer = () => {
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/logos/logo-white.png"
-                alt="NexusHome Logo"
+                alt="Seamless Smart Solutions Logo"
                 width={250}
                 height={250}
                 className="hidden dark:block"
@@ -18,7 +18,7 @@ const Footer = () => {
               />
               <Image
                 src="/logos/logo-black.png"
-                alt="NexusHome Logo"
+                alt="Seamless Smart Solutions Logo"
                 width={250}
                 height={250}
                 className="block dark:hidden"
@@ -42,7 +42,8 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          © 2024 NexusHome. All rights reserved. The future of home automation.
+          © {new Date().getFullYear()} Seamless Smart Solutions. All rights
+          reserved. The future of home automation.
         </div>
       </div>
     </footer>
