@@ -70,6 +70,12 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </AdminOnly>
+            <Link
+              href="/"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Home
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -94,24 +100,13 @@ export default function Navbar() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <a
-              href="#features"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="#products"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Products
-            </a>
-            <a
-              href="#about"
+
+            <Link
+              href="/about"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               About
-            </a>
+            </Link>
             <SignedIn>
               <Link
                 href="/dashboard"

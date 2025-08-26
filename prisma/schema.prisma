@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  clerkId   String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  clerkId      String   @unique
+  authProvider String? // stores the provider (e.g., 'google', 'apple', 'email')
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   estimates Estimate[]
 
