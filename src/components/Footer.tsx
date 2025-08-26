@@ -1,4 +1,5 @@
-import { Home } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -6,10 +7,24 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-              <Home className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold font-geist">NexusHome</span>
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/logos/logo-white.png"
+                alt="NexusHome Logo"
+                width={250}
+                height={250}
+                className="hidden dark:block"
+                priority
+              />
+              <Image
+                src="/logos/logo-black.png"
+                alt="NexusHome Logo"
+                width={250}
+                height={250}
+                className="block dark:hidden"
+                priority
+              />
+            </Link>
           </div>
           <div className="flex space-x-8 text-sm text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">
