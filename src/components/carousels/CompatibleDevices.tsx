@@ -143,7 +143,7 @@ export default function CompatibleDevices() {
                     />
 
                     {/* Dark Overlay for better text readability */}
-                    <div className="absolute inset-0 bg-black/20 dark:bg-black/40" />
+                    <div className="absolute inset-0 bg-black/40" />
 
                     {/* Content */}
                     <CardContent className="p-6 relative z-10 h-full flex flex-col justify-between">
@@ -151,7 +151,7 @@ export default function CompatibleDevices() {
                         <h3 className="text-xl font-bold text-white mb-1 drop-shadow-lg">
                           {category.title}
                         </h3>
-                        <p className="text-sm text-foreground/80 leading-relaxed drop-shadow-md">
+                        <p className="text-sm text-white/60 leading-relaxed drop-shadow-md">
                           {category.description}
                         </p>
                       </div>
