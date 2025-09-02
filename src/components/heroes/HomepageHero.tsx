@@ -31,7 +31,7 @@ export default function HomepageHero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold px-8 py-4"
+            className="btn-primary text-white font-semibold px-8 py-4"
           >
             Explore Products
             <ArrowRight className="ml-2 w-5 h-5" />
