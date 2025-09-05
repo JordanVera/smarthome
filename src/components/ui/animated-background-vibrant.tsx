@@ -25,12 +25,10 @@ export function AnimatedBackgroundVibrant({
   return (
     <>
       {/* Base gradient overlay with theme awareness */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br from-background/95 via-muted/90 to-background/95 ${className}`}
-      />
+      <div className={`absolute inset-0 bg-background ${className}`} />
 
       {/* Animated gradient elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden m-5 rounded-xl ">
         {/* Corner coverage elements - positioned to extend beyond viewport */}
         <div
           className={`absolute -top-32 -left-32 w-[800px] h-[800px] bg-gradient-to-br from-violet-500/70 via-purple-500/80 to-fuchsia-500/70 rounded-full ${blur} animate-float-slow animate-pulse-vibrant`}
@@ -191,95 +189,173 @@ export function AnimatedBackgroundVibrant({
         />
       </div>
 
-      {/* Enhanced CSS animations */}
+      {/* Enhanced CSS animations with smooth transitions */}
       <style jsx>{`
         @keyframes float-slow {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          12.5% {
+            transform: translateY(-10px) translateX(5px);
           }
           25% {
             transform: translateY(-20px) translateX(10px);
           }
+          37.5% {
+            transform: translateY(-15px) translateX(2.5px);
+          }
           50% {
             transform: translateY(-10px) translateX(-15px);
+          }
+          62.5% {
+            transform: translateY(-20px) translateX(-7.5px);
           }
           75% {
             transform: translateY(-30px) translateX(5px);
           }
+          87.5% {
+            transform: translateY(-15px) translateX(2.5px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
+          }
         }
 
         @keyframes float-reverse {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          12.5% {
+            transform: translateY(7.5px) translateX(-5px);
           }
           25% {
             transform: translateY(15px) translateX(-10px);
           }
+          37.5% {
+            transform: translateY(20px) translateX(5px);
+          }
           50% {
             transform: translateY(25px) translateX(20px);
+          }
+          62.5% {
+            transform: translateY(17.5px) translateX(7.5px);
           }
           75% {
             transform: translateY(10px) translateX(-5px);
           }
+          87.5% {
+            transform: translateY(5px) translateX(-2.5px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
+          }
         }
 
         @keyframes float-diagonal {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px) rotate(0deg);
+          }
+          12.5% {
+            transform: translateY(-7.5px) translateX(-7.5px) rotate(45deg);
           }
           25% {
             transform: translateY(-15px) translateX(-15px) rotate(90deg);
           }
+          37.5% {
+            transform: translateY(-22.5px) translateX(-22.5px) rotate(135deg);
+          }
           50% {
             transform: translateY(-30px) translateX(-30px) rotate(180deg);
+          }
+          62.5% {
+            transform: translateY(-22.5px) translateX(-22.5px) rotate(225deg);
           }
           75% {
             transform: translateY(-15px) translateX(-15px) rotate(270deg);
           }
+          87.5% {
+            transform: translateY(-7.5px) translateX(-7.5px) rotate(315deg);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px) rotate(360deg);
+          }
         }
 
         @keyframes float-up {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) scale(1);
+          }
+          25% {
+            transform: translateY(-20px) scale(1.025);
           }
           50% {
             transform: translateY(-40px) scale(1.1);
           }
+          75% {
+            transform: translateY(-20px) scale(1.025);
+          }
+          100% {
+            transform: translateY(0px) scale(1);
+          }
         }
 
         @keyframes float-bounce {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          12.5% {
+            transform: translateY(-12.5px) translateX(7.5px);
           }
           25% {
             transform: translateY(-25px) translateX(15px);
           }
+          37.5% {
+            transform: translateY(-37.5px) translateX(7.5px);
+          }
           50% {
             transform: translateY(-50px) translateX(0px);
+          }
+          62.5% {
+            transform: translateY(-37.5px) translateX(-7.5px);
           }
           75% {
             transform: translateY(-25px) translateX(-15px);
           }
+          87.5% {
+            transform: translateY(-12.5px) translateX(-7.5px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
+          }
         }
 
         @keyframes float-wave {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          12.5% {
+            transform: translateY(-5px) translateX(10px);
           }
           25% {
             transform: translateY(-10px) translateX(20px);
           }
+          37.5% {
+            transform: translateY(-5px) translateX(10px);
+          }
           50% {
             transform: translateY(0px) translateX(0px);
           }
+          62.5% {
+            transform: translateY(5px) translateX(-10px);
+          }
           75% {
             transform: translateY(10px) translateX(-20px);
+          }
+          87.5% {
+            transform: translateY(5px) translateX(-10px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
           }
         }
 
@@ -287,14 +363,38 @@ export function AnimatedBackgroundVibrant({
           0% {
             transform: translateY(0px) translateX(0px) rotate(0deg);
           }
+          10% {
+            transform: translateY(-8px) translateX(8px) rotate(36deg);
+          }
+          20% {
+            transform: translateY(-16px) translateX(16px) rotate(72deg);
+          }
           25% {
             transform: translateY(-20px) translateX(20px) rotate(90deg);
+          }
+          30% {
+            transform: translateY(-16px) translateX(16px) rotate(108deg);
+          }
+          40% {
+            transform: translateY(-8px) translateX(8px) rotate(144deg);
           }
           50% {
             transform: translateY(0px) translateX(0px) rotate(180deg);
           }
+          60% {
+            transform: translateY(8px) translateX(-8px) rotate(216deg);
+          }
+          70% {
+            transform: translateY(16px) translateX(-16px) rotate(252deg);
+          }
           75% {
             transform: translateY(20px) translateX(-20px) rotate(270deg);
+          }
+          80% {
+            transform: translateY(16px) translateX(-16px) rotate(288deg);
+          }
+          90% {
+            transform: translateY(8px) translateX(-8px) rotate(324deg);
           }
           100% {
             transform: translateY(0px) translateX(0px) rotate(360deg);
@@ -302,34 +402,62 @@ export function AnimatedBackgroundVibrant({
         }
 
         @keyframes float-fast {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          16.5% {
+            transform: translateY(-7.5px) translateX(5px);
           }
           33% {
             transform: translateY(-15px) translateX(10px);
           }
+          49.5% {
+            transform: translateY(-10px) translateX(0px);
+          }
           66% {
             transform: translateY(-5px) translateX(-10px);
+          }
+          83% {
+            transform: translateY(-2.5px) translateX(-5px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
           }
         }
 
         @keyframes float-zigzag {
-          0%,
-          100% {
+          0% {
             transform: translateY(0px) translateX(0px);
+          }
+          10% {
+            transform: translateY(-5px) translateX(7.5px);
           }
           20% {
             transform: translateY(-10px) translateX(15px);
           }
+          30% {
+            transform: translateY(-15px) translateX(2.5px);
+          }
           40% {
             transform: translateY(-20px) translateX(-10px);
+          }
+          50% {
+            transform: translateY(-17.5px) translateX(5px);
           }
           60% {
             transform: translateY(-15px) translateX(20px);
           }
+          70% {
+            transform: translateY(-10px) translateX(2.5px);
+          }
           80% {
             transform: translateY(-5px) translateX(-15px);
+          }
+          90% {
+            transform: translateY(-2.5px) translateX(-7.5px);
+          }
+          100% {
+            transform: translateY(0px) translateX(0px);
           }
         }
 
@@ -337,14 +465,38 @@ export function AnimatedBackgroundVibrant({
           0% {
             transform: translateY(0px) translateX(0px) rotate(0deg);
           }
+          10% {
+            transform: translateY(-6px) translateX(6px) rotate(36deg);
+          }
+          20% {
+            transform: translateY(-12px) translateX(12px) rotate(72deg);
+          }
           25% {
             transform: translateY(-15px) translateX(15px) rotate(90deg);
+          }
+          30% {
+            transform: translateY(-12px) translateX(18px) rotate(108deg);
+          }
+          40% {
+            transform: translateY(-6px) translateX(24px) rotate(144deg);
           }
           50% {
             transform: translateY(0px) translateX(30px) rotate(180deg);
           }
+          60% {
+            transform: translateY(6px) translateX(24px) rotate(216deg);
+          }
+          70% {
+            transform: translateY(12px) translateX(18px) rotate(252deg);
+          }
           75% {
             transform: translateY(15px) translateX(15px) rotate(270deg);
+          }
+          80% {
+            transform: translateY(12px) translateX(12px) rotate(288deg);
+          }
+          90% {
+            transform: translateY(6px) translateX(6px) rotate(324deg);
           }
           100% {
             transform: translateY(0px) translateX(0px) rotate(360deg);
@@ -352,61 +504,103 @@ export function AnimatedBackgroundVibrant({
         }
 
         @keyframes rotate-slow {
-          from {
+          0% {
             transform: translate(-50%, -50%) rotate(0deg);
           }
-          to {
+          25% {
+            transform: translate(-50%, -50%) rotate(90deg);
+          }
+          50% {
+            transform: translate(-50%, -50%) rotate(180deg);
+          }
+          75% {
+            transform: translate(-50%, -50%) rotate(270deg);
+          }
+          100% {
             transform: translate(-50%, -50%) rotate(360deg);
           }
         }
 
         @keyframes pulse-vibrant {
-          0%,
-          100% {
+          0% {
             opacity: var(--pulse-opacity-start, 0.4);
             transform: scale(1);
+          }
+          12.5% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.1);
+            transform: scale(1.0125);
+          }
+          25% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.2);
+            transform: scale(1.025);
+          }
+          37.5% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.3);
+            transform: scale(1.0375);
           }
           50% {
             opacity: var(--pulse-opacity-peak, 0.8);
             transform: scale(1.05);
           }
+          62.5% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.3);
+            transform: scale(1.0375);
+          }
+          75% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.2);
+            transform: scale(1.025);
+          }
+          87.5% {
+            opacity: calc(var(--pulse-opacity-start, 0.4) + 0.1);
+            transform: scale(1.0125);
+          }
+          100% {
+            opacity: var(--pulse-opacity-start, 0.4);
+            transform: scale(1);
+          }
         }
 
         .animate-float-slow {
-          animation: float-slow 8s ease-in-out infinite;
+          animation: float-slow 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         .animate-float-reverse {
-          animation: float-reverse 10s ease-in-out infinite;
+          animation: float-reverse 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         .animate-float-diagonal {
-          animation: float-diagonal 12s ease-in-out infinite;
+          animation: float-diagonal 12s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+            infinite;
         }
         .animate-float-up {
-          animation: float-up 6s ease-in-out infinite;
+          animation: float-up 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         .animate-float-bounce {
-          animation: float-bounce 7s ease-in-out infinite;
+          animation: float-bounce 7s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+            infinite;
         }
         .animate-float-wave {
-          animation: float-wave 9s ease-in-out infinite;
+          animation: float-wave 9s cubic-bezier(0.445, 0.05, 0.55, 0.95)
+            infinite;
         }
         .animate-float-spiral {
-          animation: float-spiral 15s linear infinite;
+          animation: float-spiral 15s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+            infinite;
         }
         .animate-float-fast {
-          animation: float-fast 4s ease-in-out infinite;
+          animation: float-fast 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         .animate-float-zigzag {
-          animation: float-zigzag 5s ease-in-out infinite;
+          animation: float-zigzag 5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+            infinite;
         }
         .animate-float-orbit {
-          animation: float-orbit 11s linear infinite;
+          animation: float-orbit 11s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+            infinite;
         }
         .animate-rotate-slow {
-          animation: rotate-slow 20s linear infinite;
+          animation: rotate-slow 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         .animate-pulse-vibrant {
-          animation: pulse-vibrant 3s ease-in-out infinite;
+          animation: pulse-vibrant 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
           --pulse-opacity-start: 0.6;
           --pulse-opacity-peak: 1;
         }

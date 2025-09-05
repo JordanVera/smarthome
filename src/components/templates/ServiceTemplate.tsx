@@ -49,8 +49,9 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 px-6 overflow-hidden">
         <AnimatedBackgroundVibrant />
+        <div className={`absolute inset-0 bg-background/30`} />
 
-        <div className="relative max-w-7xl mx-auto">
+        <div className="relative max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge variant="outline" className="mb-4">

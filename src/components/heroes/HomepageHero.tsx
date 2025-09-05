@@ -10,9 +10,10 @@ import { AnimatedBackgroundVibrant } from '../ui/animated-background-vibrant';
 export default function HomepageHero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-    <AnimatedBackgroundVibrant />
+      <AnimatedBackgroundVibrant />
+      <div className={`absolute inset-0 bg-background/30`} />
 
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
+      <div className="relative z-10 text-center max-w-4xl mx-auto  ">
         <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
           Next-Gen Smart Home Technology
         </Badge>
