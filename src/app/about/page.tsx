@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AnimatedBackgroundVibrant } from '@/components/ui/animated-background-vibrant';
 
 export default function AboutPage() {
   const stats = [
@@ -116,8 +117,9 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 px-6 overflow-hidden">
-        <AnimatedBackground />
+      <section className="h-[calc(100vh-68px)] relative py-20 lg:py-32 px-6 overflow-hidden mt-[68px]">
+        <AnimatedBackgroundVibrant />
+        <div className={`absolute inset-0 bg-background/30`} />
 
         <div className="relative z-10 max-w-6xl mx-auto text-center">
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
@@ -414,7 +416,8 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="relative py-20 px-6 overflow-hidden">
-        <AnimatedBackground />
+        <AnimatedBackgroundVibrant />
+        <div className={`absolute inset-0 bg-background/30`} />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-bold font-geist mb-6">
             Ready to Join the

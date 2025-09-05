@@ -238,6 +238,8 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
       {/* CTA Section */}
       <section className="relative py-20 px-6 overflow-hidden">
         <AnimatedBackgroundVibrant />
+        <div className={`absolute inset-0 bg-background/30`} />
+
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold font-geist mb-4">
             {ctaTitle}
