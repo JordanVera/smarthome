@@ -28,7 +28,7 @@ export function AnimatedBackgroundVibrant({
       <div className={`absolute inset-0 bg-background ${className}`} />
 
       {/* Animated gradient elements */}
-      <div className="absolute inset-0 overflow-hidden m-5 rounded-xl ">
+      <div className="absolute inset-0 overflow-hidden m-5 rounded-xl mt-[88px]">
         {/* Corner coverage elements - positioned to extend beyond viewport */}
         <div
           className={`absolute -top-32 -left-32 w-[800px] h-[800px] bg-gradient-to-br from-violet-500/70 via-purple-500/80 to-fuchsia-500/70 rounded-full ${blur} animate-float-slow animate-pulse-vibrant`}
