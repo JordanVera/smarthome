@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, MessageSquare, Send, User } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import {
   Dialog,
@@ -26,11 +26,22 @@ export default function ContactModal({ trigger }: ContactModalProps) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.fullName || '',
-    email: user?.primaryEmailAddress?.emailAddress || '',
+    name: '',
+    email: '',
     subject: '',
     message: '',
   });
+
+  // Update form data when user data becomes available
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: user.fullName || '',
+        email: user.primaryEmailAddress?.emailAddress || '',
+      }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
