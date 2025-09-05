@@ -16,6 +16,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatedBackground } from '@/components/ui/animated-background';
+import { AnimatedBackgroundVibrant } from '@/components/ui/animated-background-vibrant';
 import {
   Accordion,
   AccordionContent,
@@ -47,7 +48,7 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 px-6 overflow-hidden">
-        <AnimatedBackground />
+        <AnimatedBackgroundVibrant />
 
         <div className="relative max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -62,7 +63,11 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
                 {description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="group btn-primary">
+                <Button
+                  onClick={openModal}
+                  size="lg"
+                  className="group btn-primary"
+                >
                   Get Free Quote
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -231,7 +236,7 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
 
       {/* CTA Section */}
       <section className="relative py-20 px-6 overflow-hidden">
-        <AnimatedBackground />
+        <AnimatedBackgroundVibrant />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold font-geist mb-4">
             {ctaTitle}

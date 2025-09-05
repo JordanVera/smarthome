@@ -5,11 +5,12 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { TextFlip } from '../ui/text-flip';
 import { AnimatedBackground } from '../ui/animated-background';
+import { AnimatedBackgroundVibrant } from '../ui/animated-background-vibrant';
 
 export default function HomepageHero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      <AnimatedBackground />
+    <AnimatedBackgroundVibrant />
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
