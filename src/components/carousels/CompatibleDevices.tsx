@@ -166,7 +166,7 @@ export default function CompatibleDevices() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background  border-border hover:bg-white/20 hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={scrollPrev}
             disabled={selectedIndex === 0}
           >
@@ -176,7 +176,7 @@ export default function CompatibleDevices() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background border-border hover:bg-accent hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background  border-border hover:bg-white/20 hover:text-accent-foreground rounded-full w-10 h-10 shadow-lg z-10 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={scrollNext}
             disabled={selectedIndex === scrollSnaps.length - 1}
           >
@@ -192,7 +192,7 @@ export default function CompatibleDevices() {
                 className={`w-3 h-3 rounded-full transition-all duration-200 ${
                   index === selectedIndex
                     ? 'bg-foreground'
-                    : 'bg-muted hover:bg-muted-foreground/50'
+                    : 'dark:bg-gray-500 bg-gray-300 hover:bg-muted-foreground/50'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
