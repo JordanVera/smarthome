@@ -4,6 +4,7 @@ import { Geist } from 'next/font/google';
 import { Manrope } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -52,6 +53,7 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
+      <Toaster />
     </ClerkProvider>
   );
 }

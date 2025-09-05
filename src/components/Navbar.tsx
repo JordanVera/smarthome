@@ -107,6 +107,12 @@ export default function Navbar() {
             >
               About
             </Link>
+            <Link
+              href="/contact"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Contact
+            </Link>
             <SignedIn>
               <Link
                 href="/dashboard"
@@ -195,6 +201,12 @@ export default function Navbar() {
                   >
                     About
                   </a>
+                  <Link
+                    href="/contact"
+                    className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Contact
+                  </Link>
                   <SignedIn>
                     <Link
                       href="/dashboard"

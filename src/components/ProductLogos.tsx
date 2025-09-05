@@ -73,6 +73,20 @@ const ProductLogos = () => {
       bgColor: 'from-green-500/10 via-emerald-400/5 to-teal-500/10',
       borderColor: 'border-green-500/20',
     },
+    {
+      name: 'Matter',
+      logo: '/products/matter.webp',
+      description: 'Smart home communication protocol',
+      bgColor: 'from-cyan-500/10 via-emerald-400/5 to-teal-500/10',
+      borderColor: 'border-cyan-500/20',
+    },
+    {
+      name: 'Inovelli',
+      logo: '/products/inovelli.jpg',
+      description: 'Leading smart home automation and product company',
+      bgColor: 'from-green-500/10 via-emerald-400/5 to-teal-500/10',
+      borderColor: 'border-green-500/20',
+    },
   ];
 
   return (
