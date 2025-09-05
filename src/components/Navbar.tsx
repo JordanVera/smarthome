@@ -46,7 +46,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2">
             <AdminOnly>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -71,12 +71,13 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </AdminOnly>
-            <Link
-              href="/"
+            <Button
+              variant="ghost"
+              asChild
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Home
-            </Link>
+              <Link href="/">Home</Link>
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -102,20 +103,22 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link
-              href="/about"
+            <Button
+              variant="ghost"
+              asChild
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              About
-            </Link>
+              <Link href="/about">About</Link>
+            </Button>
             <ContactModal />
             <SignedIn>
-              <Link
-                href="/dashboard"
+              <Button
+                variant="ghost"
+                asChild
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Dashboard
-              </Link>
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
             </SignedIn>
             <ThemeToggle />
             <AuthButtons />
