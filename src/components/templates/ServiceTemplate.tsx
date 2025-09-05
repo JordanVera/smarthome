@@ -47,7 +47,7 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 px-6 overflow-hidden">
+      <section className="relative py-20 lg:py-32 px-6 overflow-hidden mt-[68px]">
         <AnimatedBackgroundVibrant />
         <div className={`absolute inset-0 bg-background/30`} />
 
