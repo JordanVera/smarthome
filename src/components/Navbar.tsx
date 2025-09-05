@@ -1,4 +1,5 @@
-import { Home, Menu, ChevronDown, Settings } from 'lucide-react';
+import { Home, Menu, ChevronDown } from 'lucide-react';
+import ContactModal from './ContactModal';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
@@ -107,12 +108,7 @@ export default function Navbar() {
             >
               About
             </Link>
-            <Link
-              href="/contact"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Contact
-            </Link>
+            <ContactModal />
             <SignedIn>
               <Link
                 href="/dashboard"
@@ -201,12 +197,13 @@ export default function Navbar() {
                   >
                     About
                   </a>
-                  <Link
-                    href="/contact"
-                    className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Contact
-                  </Link>
+                  <ContactModal
+                    trigger={
+                      <button className="block w-full text-left py-2 text-muted-foreground hover:text-foreground transition-colors">
+                        Contact
+                      </button>
+                    }
+                  />
                   <SignedIn>
                     <Link
                       href="/dashboard"
