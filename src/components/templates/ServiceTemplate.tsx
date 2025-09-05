@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useContactModal } from '@/contexts/ContactModalContext';
+
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
@@ -38,6 +40,8 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
     ctaTitle,
     ctaDescription,
   } = serviceData;
+
+  const { openModal } = useContactModal();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -235,17 +239,19 @@ export default function ServiceTemplate({ serviceData }: ServiceTemplateProps) {
           <p className="text-xl text-muted-foreground mb-8">{ctaDescription}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
+              onClick={openModal}
               size="lg"
               className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold"
             >
               Schedule Consultation
             </Button>
             <Button
+              onClick={openModal}
               size="lg"
               variant="outline"
               className="border-border text-foreground hover:bg-muted"
             >
-              <Link href="/estimate">Get Estimate</Link>
+              Get Estimate
             </Button>
           </div>
         </div>

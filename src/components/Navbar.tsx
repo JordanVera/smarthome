@@ -1,11 +1,10 @@
 'use client';
 
-import { Home, Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
 import AuthButtons from './AuthButtons';
-import { SignedIn } from '@clerk/nextjs';
 import AdminOnly from './AdminOnly';
 import { useContactModal } from '@/contexts/ContactModalContext';
 import {
