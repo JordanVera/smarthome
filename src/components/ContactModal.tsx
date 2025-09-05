@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Mail, MessageSquare, Send, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useToast } from '@/components/ui/use-toast';
+import { useContactModal } from '@/contexts/ContactModalContext';
 import {
   Dialog,
   DialogContent,
@@ -24,7 +25,7 @@ interface ContactModalProps {
 export default function ContactModal({ trigger }: ContactModalProps) {
   const { user } = useUser();
   const { toast } = useToast();
-  const [open, setOpen] = useState(false);
+  const { isOpen, closeModal } = useContactModal();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,7 +73,7 @@ export default function ContactModal({ trigger }: ContactModalProps) {
       setFormData((prev) => ({ ...prev, subject: '', message: '' }));
 
       // Close the modal
-      setOpen(false);
+      closeModal();
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -84,7 +85,10 @@ export default function ContactModal({ trigger }: ContactModalProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => (open ? undefined : closeModal())}
+    >
       <DialogTrigger asChild>
         {trigger || (
           <Button

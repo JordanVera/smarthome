@@ -5,6 +5,8 @@ import { Manrope } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { ContactModalProvider } from '@/contexts/ContactModalContext';
+import ContactModal from '@/components/ContactModal';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -47,9 +49,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
-            <Footer />
+            <ContactModalProvider>
+              <Navbar />
+              {children}
+              <Footer />
+              <ContactModal />
+            </ContactModalProvider>
           </ThemeProvider>
         </body>
       </html>

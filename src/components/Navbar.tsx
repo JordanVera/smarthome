@@ -1,11 +1,13 @@
+'use client';
+
 import { Home, Menu, ChevronDown } from 'lucide-react';
-import ContactModal from './ContactModal';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
 import AuthButtons from './AuthButtons';
 import { SignedIn } from '@clerk/nextjs';
 import AdminOnly from './AdminOnly';
+import { useContactModal } from '@/contexts/ContactModalContext';
 import {
   Drawer,
   DrawerContent,
@@ -22,6 +24,8 @@ import {
 import Image from 'next/image';
 
 export default function Navbar() {
+  const { openModal } = useContactModal();
+
   return (
     <nav className="fixed top-0 w-full z-50 frosted-glass-dark">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -110,16 +114,14 @@ export default function Navbar() {
             >
               <Link href="/about">About</Link>
             </Button>
-            <ContactModal />
-            <SignedIn>
-              <Button
-                variant="ghost"
-                asChild
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Link href="/dashboard">Dashboard</Link>
-              </Button>
-            </SignedIn>
+            <Button
+              variant="ghost"
+              onClick={openModal}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Contact
+            </Button>
+
             <ThemeToggle />
             <AuthButtons />
           </div>
@@ -200,21 +202,12 @@ export default function Navbar() {
                   >
                     About
                   </a>
-                  <ContactModal
-                    trigger={
-                      <button className="block w-full text-left py-2 text-muted-foreground hover:text-foreground transition-colors">
-                        Contact
-                      </button>
-                    }
-                  />
-                  <SignedIn>
-                    <Link
-                      href="/dashboard"
-                      className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      Dashboard
-                    </Link>
-                  </SignedIn>
+                  <button
+                    onClick={openModal}
+                    className="block w-full text-left py-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Contact
+                  </button>
                   <div className="pt-4">
                     <AuthButtons />
                   </div>
