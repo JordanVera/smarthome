@@ -9,7 +9,7 @@ import { AnimatedBackgroundVibrant } from '../ui/animated-background-vibrant';
 
 export default function HomepageHero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden mt-[68px]">
+    <section className="relative min-h-[calc(100vh-68px)] flex items-center justify-center px-6 overflow-hidden mt-[68px]">
       <AnimatedBackgroundVibrant />
       <div className={`absolute inset-0 bg-background/30`} />
 
